@@ -8,7 +8,8 @@ It's simple application for compare excel files places on different directories.
 
 ### Existing application flags:
 
-    config - [not required] Full path to *.json configuration file (Default path to configuration file it directory when place application)
+    config - [not required] Full path to *.json configuration file (Default path to configuration file it directory
+    when place application)
     dDir - [required] Full path to directory with default excel files
     nDir - [required] Full path to directory with new excel files
     oFile - [required] Full path and name to save compare results
