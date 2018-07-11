@@ -23,23 +23,23 @@ type Difference struct {
 	NewValue string
 }
 
-//Differecies contain all find differencies between files
-type Differecies []Difference
+//Differences contain all find differences between files
+type Differences []Difference
 
-func compare(data Attributes, setting CompareSetting) (Differecies, error) {
+func compare(data Attributes, setting CompareSetting) (Differences, error) {
 	var tCell string
-	var differencies Differecies
+	var differences Differences
 
 	xlDefaultFile, err := excelize.OpenFile(filepath.FromSlash(data.dDir + "/" + setting.File))
 
 	if err != nil {
-		return differencies, errors.New("default file can't be open for reading")
+		return differences, errors.New("default file can't be open for reading")
 	}
 
 	xlNewFile, err := excelize.OpenFile(filepath.FromSlash(data.nDir + "/" + setting.File))
 
 	if err != nil {
-		return differencies, errors.New("new file can't be open for reading")
+		return differences, errors.New("new file can't be open for reading")
 	}
 
 	style, _ := xlNewFile.NewStyle(`{"fill":{"type":"pattern","color":["#FF0000"],"pattern":1}, "alignment": {"horizontal":"center", "vertical":"center", "wrap_text":true}}`)
@@ -63,20 +63,20 @@ func compare(data Attributes, setting CompareSetting) (Differecies, error) {
 			}
 
 			dif := Difference{setting.File, sName, tCell, dCell, nCell}
-			differencies = append(differencies, dif)
+			differences = append(differences, dif)
 
 			xlNewFile.SetCellStyle(sName, tCell, tCell, style)
 		}
 	}
 
-	if len(differencies) > 0 {
+	if len(differences) > 0 {
 		xlNewFile.Save()
 	}
 
-	return differencies, nil
+	return differences, nil
 }
 
-func writeResult(differences Differecies, fName string) {
+func writeResult(differences Differences, fName string) {
 	xlsx := excelize.NewFile()
 	index := xlsx.NewSheet(sheetName)
 
