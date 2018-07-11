@@ -1,0 +1,14 @@
+{
+    "compare": [
+        { "file": "t_e1.xlsx", "column_default": "H", "column_new": "H" },
+        { "file": "t_e2.xlsx", "column_default": "H", "column_new": "H" },
+        { "file": "t_e3.xlsx", "column_default": "H", "column_new": "H" },
+        { "file": "t_e4.xlsx", "column_default": "H", "column_new": "H" },
+        { "file": "t_e5.xlsx", "column_default": "H", "column_new": "H" },
+        { "file": "t_e6.xlsx", "column_default": "H", "column_new": "H" },
+        { "file": "t_e7.xlsx", "column_default": "H", "column_new": "H" },
+        { "file": "t_e8.xlsx", "column_default": "H", "column_new": "H" },
+        { "file": "t_e9.xlsx", "column_default": "H", "column_new": "H" },
+        { "file": "t_e10.xlsx", "column_default": "H", "column_new": "H" }
+    ]
+}
