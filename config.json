@@ -1,6 +1,7 @@
 {
     "compare": [
         { "file": "t_e1.xlsx", "column_default": "H", "column_new": "H" },
+        { "file": "t_e1.xlsx", "column_default": "B", "column_new": "B" },
         { "file": "t_e2.xlsx", "column_default": "H", "column_new": "H" },
         { "file": "t_e3.xlsx", "column_default": "H", "column_new": "H" },
         { "file": "t_e4.xlsx", "column_default": "H", "column_new": "H" },

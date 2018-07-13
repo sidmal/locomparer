@@ -42,19 +42,21 @@ func GetSettings(configPath string) (Settings, error) {
 func CheckFileSettings(files []string, settings Settings) ([]CompareSetting, error) {
 	var checkedSettingsList []CompareSetting
 
-	scm := make(map[string]CompareSetting)
+	scm := make(map[string][]CompareSetting)
 
 	for _, s := range settings.Compare {
-		scm[s.File] = s
+		scm[s.File] = append(scm[s.File], s)
 	}
 
 	for _, fn := range files {
-		if s, ok := scm[fn]; ok {
-			checkedSettingsList = append(checkedSettingsList, s)
+		if _, ok := scm[fn]; !ok {
+			fmt.Printf("Settings for file %s not found. File processing will be skip.", fn)
 			continue
 		}
 
-		fmt.Printf("Settings for file %s not found. File processing will be skip.", fn)
+		for _, s := range scm[fn] {
+			checkedSettingsList = append(checkedSettingsList, s)
+		}
 	}
 
 	if len(checkedSettingsList) <= 0 {

@@ -15,7 +15,7 @@ const (
 type Attributes struct {
 	dDir     string
 	nDir     string
-	oFile    string
+	oDir     string
 	settings string
 }
 
@@ -24,11 +24,11 @@ func main() {
 
 	flag.StringVar(&data.dDir, "dDir", "", "Directory with default files.")
 	flag.StringVar(&data.nDir, "nDir", "", "Directory with files for compare with default files.")
-	flag.StringVar(&data.oFile, "oFile", "./compare_result.xlsx", "Path to file for save difference between files.")
+	flag.StringVar(&data.oDir, "oDir", "./", "Directory for save compare results.")
 	flag.StringVar(&data.settings, "config", "./config.json", "Path to configuration file.")
 	flag.Parse()
 
-	if data.dDir == "" || data.nDir == "" || data.oFile == "" {
+	if data.dDir == "" || data.nDir == "" || data.oDir == "" {
 		flag.PrintDefaults()
 		os.Exit(exitCode)
 	}
@@ -57,7 +57,7 @@ func main() {
 		os.Exit(exitCode)
 	}
 
-	var tDifs Differecies
+	var tDifs Differences
 	var wg sync.WaitGroup
 
 	for _, set := range chSettings {
@@ -79,7 +79,7 @@ func main() {
 	}
 	wg.Wait()
 
-	writeResult(tDifs, data.oFile)
+	writeResult(tDifs, data.oDir)
 
 	fmt.Println("Compare process complete!")
 }

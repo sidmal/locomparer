@@ -1,3 +1,6 @@
 /.idea/
 /vendor/
+/compared/
+/compare_result.xlsx
 /Gopkg.lock
+/locomparer.exe

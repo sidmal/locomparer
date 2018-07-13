@@ -12,8 +12,9 @@ It's simple application for compare excel files places on different directories.
     when place application)
     dDir - [required] Full path to directory with default excel files
     nDir - [required] Full path to directory with new excel files
-    oFile - [required] Full path and name to save compare results
+    oDir - Full path to directory for save compare results  (Default path it directory when place application)
 
 Run application example:
 
     locomparer -dDir="C:\apps\def_test" -nDir="C:\apps\new_test" -oFile="C:\apps\compare.xlsx"
+        -oDir="C:\apps\compare_xlsx"

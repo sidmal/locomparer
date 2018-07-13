@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -11,7 +12,8 @@ import (
 )
 
 const (
-	sheetName = "Sheet 1"
+	sheetName             = "Sheet 1"
+	compareResultFileName = "compare_result.xlsx"
 )
 
 //Difference contain fields to save difference between files
@@ -36,7 +38,16 @@ func compare(data Attributes, setting CompareSetting) (Differences, error) {
 		return differences, errors.New("default file can't be open for reading")
 	}
 
-	xlNewFile, err := excelize.OpenFile(filepath.FromSlash(data.nDir + "/" + setting.File))
+	var xlNewFile *excelize.File
+
+	nFile := filepath.FromSlash(data.oDir + "/compared/" + setting.File)
+	_, errExist := os.Stat(nFile)
+
+	if os.IsNotExist(errExist) {
+		xlNewFile, err = excelize.OpenFile(filepath.FromSlash(data.nDir + "/" + setting.File))
+	} else {
+		xlNewFile, err = excelize.OpenFile(nFile)
+	}
 
 	if err != nil {
 		return differences, errors.New("new file can't be open for reading")
@@ -70,13 +81,23 @@ func compare(data Attributes, setting CompareSetting) (Differences, error) {
 	}
 
 	if len(differences) > 0 {
-		xlNewFile.Save()
+		dName := filepath.FromSlash(data.oDir + "/compared/")
+
+		if _, err := os.Stat(dName); os.IsNotExist(err) {
+			os.MkdirAll(dName, os.ModePerm)
+		}
+
+		if os.IsNotExist(errExist) {
+			xlNewFile.SaveAs(filepath.FromSlash(dName + "/" + setting.File))
+		} else {
+			xlNewFile.Save()
+		}
 	}
 
 	return differences, nil
 }
 
-func writeResult(differences Differences, fName string) {
+func writeResult(differences Differences, dName string) {
 	xlsx := excelize.NewFile()
 	index := xlsx.NewSheet(sheetName)
 
@@ -108,5 +129,13 @@ func writeResult(differences Differences, fName string) {
 		idx++
 	}
 
-	xlsx.SaveAs(fName)
+	dName = filepath.FromSlash(dName)
+
+	if _, err := os.Stat(dName); os.IsNotExist(err) {
+		os.MkdirAll(dName, os.ModePerm)
+	}
+
+	dName = filepath.FromSlash(dName + "/" + compareResultFileName)
+
+	xlsx.SaveAs(dName)
 }
