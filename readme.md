@@ -16,5 +16,5 @@ It's simple application for compare excel files places on different directories.
 
 Run application example:
 
-    locomparer -dDir="C:\apps\def_test" -nDir="C:\apps\new_test" -oFile="C:\apps\compare.xlsx"
+    locomparer -dDir="C:\apps\def_test" -nDir="C:\apps\new_test"
         -oDir="C:\apps\compare_xlsx"

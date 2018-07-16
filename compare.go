@@ -12,8 +12,10 @@ import (
 )
 
 const (
-	sheetName             = "Sheet 1"
-	compareResultFileName = "compare_result.xlsx"
+	sheetName                = "Sheet 1"
+	compareResultFileName    = "compare_result.xlsx"
+	transparentFillStartCell = "A1"
+	transparentFillEndCell   = "Z65536"
 )
 
 //Difference contain fields to save difference between files
@@ -54,10 +56,6 @@ func compare(data Attributes, setting CompareSetting) (Differences, error) {
 	}
 
 	style, _ := xlNewFile.NewStyle(`{"fill":{"type":"pattern","color":["#FF0000"],"pattern":1}, "alignment": {"horizontal":"center", "vertical":"center", "wrap_text":true}}`)
-
-	if err != nil {
-		panic(err)
-	}
 
 	for _, sName := range xlDefaultFile.GetSheetMap() {
 		dRows := xlDefaultFile.GetRows(sName)

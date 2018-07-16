@@ -28,7 +28,7 @@ func main() {
 	flag.StringVar(&data.settings, "config", "./config.json", "Path to configuration file.")
 	flag.Parse()
 
-	if data.dDir == "" || data.nDir == "" || data.oDir == "" {
+	if data.dDir == "" || data.nDir == "" {
 		flag.PrintDefaults()
 		os.Exit(exitCode)
 	}
